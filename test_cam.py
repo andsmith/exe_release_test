@@ -9,7 +9,7 @@ def run(cam_ind=0):
     res = None
     t_start = time.time()
     color = (128,254,128)
-    
+    out_str = "Calculating..."
     while True:
         win_name = "Camera - type 'q' to quit."
         cv2.namedWindow(win_name,cv2.WINDOW_NORMAL)
@@ -24,12 +24,13 @@ def run(cam_ind=0):
             res = frame.shape[:2][::-1]
             
             cv2.resizeWindow(win_name, res)
-        if np.mod(n_frames, 20)==3:
+
+        if n_frames==26:
             fps = n_frames / (time.time() - t_start)
+            out_str = "device=%i, resolution=%s, FPS=%.2f" % (cam_ind, res, fps)
             n_frames = 0
             t_start = time.time()
 
-        out_str = "device=%i, resolution=%s, FPS=%.2f" % (cam_ind, res, fps)
         font = cv2.FONT_HERSHEY_PLAIN
         font_scale = 1.3
         font_thickness =2
